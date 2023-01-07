@@ -1,7 +1,7 @@
 import {
   ADD_APARTMENT,
   ADD_APARTMENT_ERROR,
-  ADDED_APARTMENT_OK,
+  ADD_APARTMENT_OK,
   BEGIN_APARTMENTS_DOWNLOAD,
   APARTMENTS_DOWNLOAD_OK,
   APARTMENTS_DOWNLOAD_ERROR,
@@ -11,7 +11,8 @@ import {
   RETRIEVE_APARTMENT_EDIT,
   BEGIN_EDIT_APARTMENT,
   APARTMENT_EDITED_OK,
-  APARTMENT_EDITED_ERROR
+  APARTMENT_EDITED_ERROR,
+  RETRIEVE_APARTMENT_ADD
 } from './types'
 import store from '../../../../redux/store'
 
@@ -47,9 +48,8 @@ const addApartment = apartment => ({
 })
 
 const addApartmentOk = apartment => ({
-  type: ADDED_APARTMENT_OK,
-  payload: apartment
-
+  type: ADD_APARTMENT_OK,
+  payload: apartment,
 })
 
 const addApartmentError = state => ({
@@ -57,7 +57,14 @@ const addApartmentError = state => ({
   payload: state
 })
 
+const retrieveApartmentAdded = state =>({
+  type: RETRIEVE_APARTMENT_ADD,
+  payload:state
+})
+
 export const addApartmentAction = apartment => store.dispatch(addApartment(apartment))
+
+//export const retrieveApartmentAddAction = () => store.dispatch(retrieveApartmentAdded())
 
 export const addApartmentOkAction = apartment => store.dispatch(addApartmentOk(apartment))
 

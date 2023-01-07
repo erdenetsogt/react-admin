@@ -12,7 +12,7 @@ import * as auth from "../app/modules/Auth/_redux/authRedux";
 // import {contractTypeSlice} from "../app/modules/Contract/_redux/type/Slice"
 import {apartmentReducer,deleteApartmentSaga,editApartmentSaga,retrieveApartmentsSaga,addApartmentSaga} from "../app/modules/Apartment/_redux";
 import { residentReducer,deleteResidentSaga,editResidentSaga,retrieveResidentsSaga,addResidentSaga } from "../app/modules/Residents/_redux";
-import { apartmentDoorReducer } from "../app/modules/ApartmentDoor/_redux/reducer";
+import { apartmentDoorReducer,deleteApartmentDoorSaga,editApartmentDoorSaga, retrieveApartmentDoorsSaga,addApartmentDoorSaga, } from "../app/modules/ApartmentDoor/_redux";
 //import apartmentSaga from '../app/modules/Apartment/_redux/saga'
 export const rootReducer = combineReducers({
   // personLov: LovSlice.reducer,
@@ -43,6 +43,10 @@ export function* rootSaga() {
      deleteResidentSaga(),
      editResidentSaga(),
 
+     retrieveApartmentDoorsSaga(),
+     addApartmentDoorSaga(),
+     deleteApartmentDoorSaga(),
+     editApartmentDoorSaga(),
      
 
     //apartmentSaga

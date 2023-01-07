@@ -22,20 +22,24 @@ const initialState = {
   apartmentDoors: [],
   error: false,
   loading: false,
-  status:null,
-  deleteApartmentDoor: null
+  action:null,
+  actionApartmentDoor: null
 }
 export function apartmentDoorReducer (state = initialState, action) {
+  console.log(action.type)
   switch(action.type) {
-
     case BEGIN_APARTMENTDOORS_DOWNLOAD:
-    case ADD_APARTMENTDOOR:
-    case BEGIN_EDIT_APARTMENTDOOR:
-
       return {
         ...state,
-        loading: action.payload,
-        APARTMENTDOOR: action.APARTMENTDOOR
+        loading: true,
+        //apartmentDoors: action.payload
+      }
+    case ADD_APARTMENTDOOR:
+    case BEGIN_EDIT_APARTMENTDOOR:
+      return {
+        ...state,
+        loading: 1,
+        apartmentDoors: action.payload
       }
 
     case ADD_APARTMENTDOOR_OK:
@@ -45,6 +49,11 @@ export function apartmentDoorReducer (state = initialState, action) {
         loading: false
       }
     case ADD_ALL_APARTMENTDOORS:
+      console.log(action.payload)
+      return{
+        ...state,
+        apartmentDoors:action.payload
+      }
     case ADD_APARTMENTDOOR_ERROR:
     case APARTMENTDOORS_DOWNLOAD_ERROR:
     case APARTMENTDOOR_DELETED_ERROR:

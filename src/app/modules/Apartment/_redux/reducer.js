@@ -2,7 +2,9 @@ import {
   ADD_APARTMENT,
   ADD_APARTMENT_OK,
   ADD_APARTMENT_ERROR,
-  ADDED_APARTMENT_OK,
+  RETRIEVE_APARTMENT_ADD,
+  //ADDED_APARTMENT_OK,
+
   BEGIN_APARTMENTS_DOWNLOAD,
   APARTMENTS_DOWNLOAD_OK,
   APARTMENTS_DOWNLOAD_ERROR,
@@ -14,23 +16,26 @@ import {
   APARTMENT_EDITED_OK,
   APARTMENT_EDITED_ERROR
 } from './types'
-
+import {ADD,EDIT,DELETE,DOWNLOAD} from '../../actionType'
 const initialState = {
   apartments: [],
   error: false,
   loading: false,
-  status:null,
-  deleteApartment: null
+  action:null,
+  actionApartment: null
 }
 export function apartmentReducer (state = initialState, action) {
   switch(action.type) {
 
-    case ADDED_APARTMENT_OK:      
+    case ADD_APARTMENT_OK:      
       state.apartments.push(action.payload.data)
+      //console.log(action.payload.data)
       return {
         ...state,
         loading:false,
         error:null,
+        action:ADD,
+        actionApartment:action.payload.data
         //apartments:state.apartments.push(action.payload.data),
       }
     case BEGIN_APARTMENTS_DOWNLOAD:
@@ -44,20 +49,19 @@ export function apartmentReducer (state = initialState, action) {
       //   apartments:state.apartments.push(action.payload)
       // }
     case BEGIN_EDIT_APARTMENT:
-
       return {
         ...state,
         loading: action.payload,
-        APARTMENT: action.APARTMENT
+        apartment: action.apartment
       }
 
-    case ADD_APARTMENT_OK:
-      console.log(action.payload)
-      return {
-        ...state,
-        loading: false
-      }
-
+    // case ADD_APARTMENT_OK:
+    //   console.log(action.payload)
+    //   return {
+    //     ...state,
+    //     loading: false
+    //   }
+    
     case ADD_APARTMENT_ERROR:
     case APARTMENTS_DOWNLOAD_ERROR:
     case APARTMENT_DELETED_ERROR:
@@ -84,15 +88,20 @@ export function apartmentReducer (state = initialState, action) {
       //console.log('RETRIEVE_APARTMENT_DELETE')
       return {
         ...state,
-        deleteApartment: action.payload
+        actionApartment: action.payload
       }
-
+    case RETRIEVE_APARTMENT_ADD:
+      return {
+        ...state,
+        
+      }
     case APARTMENT_DELETED_OK:
       //console.log('APARTMENT_DELETED_OK')
       return {
         ...state,
-        apartments: state.apartments.filter(APARTMENT => APARTMENT.id !== state.deleteApartment),
-        deleteApartment: null
+        apartments: state.apartments.filter(APARTMENT => APARTMENT.id !== state.actionApartment),
+        actionApartment: null,
+        action:'DELETE'
       }
 
     case RETRIEVE_APARTMENT_EDIT:

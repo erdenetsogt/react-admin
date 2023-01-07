@@ -11,7 +11,7 @@ export default function RouteApartment() {
       <Route path="/new" element={<CreateApart />} />
       <Route path="/edit/:id" element={<CreateApart />} />
       <Route path="/list" element={<ListApart />} />
-      <Route path="/door/list/:aprtID" element={<ListApartDoor/>}/>
+      <Route path="/list/:aprtID" element={<ListApartDoor/>}/>
     </Routes>
     <Outlet/>
     </>

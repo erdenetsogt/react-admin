@@ -2,6 +2,7 @@ import { put, takeEvery, all, call } from 'redux-saga/effects'
 import Swal from 'sweetalert2'
 import {
   ADD_APARTMENT,
+  ADD_APARTMENT_OK,
   BEGIN_APARTMENTS_DOWNLOAD,
   RETRIEVE_APARTMENT_DELETE,
   BEGIN_EDIT_APARTMENT,
@@ -12,13 +13,17 @@ import { addAllApartmentDoorDB,retrieveApartmnetDoorsDB } from '../../ApartmentD
 import {
   downloadApartmentsOkAction,
   downloadApartmentsErrorAction,
-  //addApartmentOkAction,
+  addApartmentOkAction,
   addApartmentErrorAction,
   deleteApartmentOkAction,
   deleteApartmentErrorAction,
   editApartmentOkAction,
   editApartmentErrorAction
 } from './actions'
+
+import {
+  addApartmentAllDoorsAction
+} from '../../ApartmentDoor/_redux/actions'
 
 import {
   retrieveApartmentsDB,
@@ -50,10 +55,14 @@ function* addApartment(action) {
   
   const apartment = action.apartment
   try {
-    const newApartment = yield call(addApartmentDB, apartment)    
+    const newApartment = yield call(addApartmentDB, apartment)
+    yield call (addApartmentOkAction,newApartment)
+    //console.log(newApartment)
     const doors =  yield call(addAllApartmentDoorDB,({apartmentID:newApartment.data.id,doorCount:apartment.residentCount}))
-    yield call(retrieveApartmnetDoorsDB,newApartment.data.id)
-    console.log(doors)
+    console.log(doors.data)
+    yield call(addApartmentAllDoorsAction,doors.data)
+    //yield call(retrieveApartmnetDoorsDB,newApartment.data.id)
+    //console.log(doors)
     // Alert
     Swal.fire({
       title: 'Нэмэгдсэн!',

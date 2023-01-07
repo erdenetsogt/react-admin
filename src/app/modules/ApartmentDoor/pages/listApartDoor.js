@@ -6,12 +6,15 @@ import { Box,
 import { DataGrid } from "@mui/x-data-grid";
 //import { tokens } from "../../../../theme"//"../../theme";
 import { downloadApartmentDoorsAction } from "../_redux/actions";
+import { useParams } from 'react-router-dom';
 
 
 //import Header from "../../compon"
 //console.log(mockDataTeam);
 
 const ListApartDoor = (props) =>{  
+  let {aprtID} = useParams();
+  console.log(aprtID)
   
   const firstRenderRef = useRef(true)  
   useEffect(   
@@ -20,12 +23,12 @@ const ListApartDoor = (props) =>{
         firstRenderRef.current=false
         return
       }
-      (async () => await downloadApartmentDoorsAction())()   
-    }, [props.id]  
+      (async () => await downloadApartmentDoorsAction(aprtID))()   
+    }, [aprtID]  
   )
   //const loading = useSelector(state => state.apartmentDoor.loading)
   //const error = useSelector(state => state.apartmentDoor.error)
-  let apartment = useSelector(state => state.apartmentDoor.apartments,shallowEqual)
+  let apartment = useSelector(state => state.apartmentDoor.apartmentDoors,shallowEqual)
   
   
   
@@ -36,8 +39,8 @@ const ListApartDoor = (props) =>{
 
   const columns = [
     {field:"id",headerName:"ID"},
-    {field:"name",headerName:"Барилгын нэр", flex:1, cellClassName:"name-column--cell"},
-    {field:"address",headerName:"Хаяг",flex:1},
+    {field:"doorNumber",headerName:"Хаалга", flex:1, cellClassName:"name-column--cell"},
+    
     
     // {headerName:"Access level",
     //   flex:1,

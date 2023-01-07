@@ -17,9 +17,9 @@ import store from '../../../../redux/store'
 
 
 // Download apartmentDoors actions
-const downloadApartmentDoors = () => ({
+const downloadApartmentDoors = (apartmentID) => ({
   type: BEGIN_APARTMENTDOORS_DOWNLOAD,
-  payload: true
+  payload: apartmentID
 })
 
 const downloadApartmentDoorsOk = apartmentDoors => ({
@@ -32,7 +32,7 @@ const downloadApartmentDoorsError = () => ({
   payload: true
 })
 
-export const downloadApartmentDoorsAction = () => store.dispatch(downloadApartmentDoors())
+export const downloadApartmentDoorsAction = (apartmentID) => store.dispatch(downloadApartmentDoors(apartmentID))
 
 export const downloadApartmentDoorsOkAction = apartmentDoors => store.dispatch(downloadApartmentDoorsOk(apartmentDoors))
 
@@ -41,8 +41,7 @@ export const downloadApartmentDoorsErrorAction = () => store.dispatch(downloadAp
 // Create new all apartmentAllDoors
 const addApartmentAllDoors = apartmentAllDoors => ({
   type: ADD_ALL_APARTMENTDOORS,
-  payload: true,
-  apartmentDoor: apartmentAllDoors
+  payload: apartmentAllDoors
 })
 
 // Create new apartmentDoorDoors

@@ -3,15 +3,16 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import SuccessAlert from '../../../../components/Alert'
+//import SuccessAlert from '../../../../components/Alert'
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Header from "../../../../components/Header";
-import { addApartmentAction,downloadApartmentsOkAction } from "../../../modules/Apartment/_redux/actions";
+import { addApartmentAction,retrieveApartmentAddAction } from "../../../modules/Apartment/_redux/actions";
 import { addApartmentAllDoorsAction } from "../../ApartmentDoor/_redux/actions";
-import { useImperativeHandle } from 'react';
-import { useRef } from 'react';
+
 import { useState } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
+import { useEffect } from 'react';
 const initialValues = {
   id: 0,
   name: "",
@@ -42,15 +43,34 @@ const CreateApart = () => {
       return;
     }
     setOpen(false);
-  };
+  };  
+
+  // let apartment = useSelector(state => state.apartment,shallowEqual)
   
+  // useEffect(()=>{
+  //   console.log(apartment)
+  // },[open])
+
+
+  const getAddedApartmentID = (residentCount) =>{
+    //let apartment = useSelector(state => state.apartment.apartments,shallowEqual)
+    
+    //return ({apartmentID:apartment.actionApartment.id,doorCount:residentCount});
+  }
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const handleFormSubmit = (values) => {
-    //console.log(values);
+    console.log(values);
     try{
-      const newapartment = addApartmentAction(values);
+
+      addApartmentAction(values);
+      //const apartment1 = retrieveApartmentAddAction();
+      //console.log(apartment)
+      //addApartmentAllDoorsAction(values);
+      //addApartmentOkAction({id:newapartment.apartment.id,name:newapartment.apartment.name,address:newapartment.apartment.address});
+      //console.log(newapartment)
       setOpen(true)
+
     }
     catch(e){
 
@@ -139,11 +159,11 @@ const CreateApart = () => {
           </form>
         )}
       </Formik>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical:'bottom',horizontal:'right'}}>
+      {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical:'bottom',horizontal:'right'}}>
       <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
         This is a success message 
       </Alert>
-    </Snackbar>
+    </Snackbar> */}
     </Box>
   );
 };
