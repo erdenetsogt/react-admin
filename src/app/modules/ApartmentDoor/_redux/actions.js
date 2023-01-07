@@ -1,5 +1,6 @@
 import {
   ADD_APARTMENTDOOR,
+  ADD_ALL_APARTMENTDOORS,
   ADD_APARTMENTDOOR_ERROR,
   BEGIN_APARTMENTDOORS_DOWNLOAD,
   APARTMENTDOORS_DOWNLOAD_OK,
@@ -39,7 +40,7 @@ export const downloadApartmentDoorsErrorAction = () => store.dispatch(downloadAp
 
 // Create new all apartmentAllDoors
 const addApartmentAllDoors = apartmentAllDoors => ({
-  type: ADD_APARTMENTDOOR,
+  type: ADD_ALL_APARTMENTDOORS,
   payload: true,
   apartmentDoor: apartmentAllDoors
 })

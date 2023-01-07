@@ -6,11 +6,13 @@ import {
   RETRIEVE_APARTMENT_DELETE,
   BEGIN_EDIT_APARTMENT,
 } from './types'
+import { ADD_ALL_APARTMENTDOORS } from '../../ApartmentDoor/_redux/types'
+import { addAllApartmentDoorDB,retrieveApartmnetDoorsDB } from '../../ApartmentDoor/_redux/crud'
 
 import {
   downloadApartmentsOkAction,
   downloadApartmentsErrorAction,
-  addApartmentOkAction,
+  //addApartmentOkAction,
   addApartmentErrorAction,
   deleteApartmentOkAction,
   deleteApartmentErrorAction,
@@ -48,24 +50,24 @@ function* addApartment(action) {
   
   const apartment = action.apartment
   try {
-    yield call(addApartmentDB, apartment)
-    
-   /* const response = await axiosClient.post('/apartments', apartment)*/
-    yield addApartmentOkAction(apartment) // download actualized apartments
-      // Alert
+    const newApartment = yield call(addApartmentDB, apartment)    
+    const doors =  yield call(addAllApartmentDoorDB,({apartmentID:newApartment.data.id,doorCount:apartment.residentCount}))
+    yield call(retrieveApartmnetDoorsDB,newApartment.data.id)
+    console.log(doors)
+    // Alert
     Swal.fire({
-      title: 'Added!',
-      text: 'The apartment has been added successfully',
+      title: 'Нэмэгдсэн!',
+      text: 'Шинээр барилга нэмэгдлээ',
       icon: 'success',
       confirmButtonColor: '#62a086'
     })
   } catch (error) {
-    //console.log(error.response.data.status)
+    console.log(error)
     yield addApartmentErrorAction(true)
     Swal.fire({
       icon: 'error',
       title: 'Алдаа гарлаа',//error.name.response.data.status,
-      text: error.response.data.status
+      text: error
     })
   }
 }
@@ -73,6 +75,7 @@ function* addApartment(action) {
 // watcher saga
 export function* addApartmentSaga() {
   yield takeEvery(ADD_APARTMENT, addApartment)
+
 }
 
 

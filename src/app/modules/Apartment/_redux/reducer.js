@@ -2,6 +2,7 @@ import {
   ADD_APARTMENT,
   ADD_APARTMENT_OK,
   ADD_APARTMENT_ERROR,
+  ADDED_APARTMENT_OK,
   BEGIN_APARTMENTS_DOWNLOAD,
   APARTMENTS_DOWNLOAD_OK,
   APARTMENTS_DOWNLOAD_ERROR,
@@ -24,8 +25,18 @@ const initialState = {
 export function apartmentReducer (state = initialState, action) {
   switch(action.type) {
 
+    case ADDED_APARTMENT_OK:      
+      state.apartments.push(action.payload.data)
+      return {
+        ...state,
+        loading:false,
+        error:null,
+        //apartments:state.apartments.push(action.payload.data),
+      }
     case BEGIN_APARTMENTS_DOWNLOAD:
+      //console.log( )
     case ADD_APARTMENT:
+      //console.log(action.apartment)
       // return {
       //   ...state,
       //   loading:false,
@@ -41,7 +52,7 @@ export function apartmentReducer (state = initialState, action) {
       }
 
     case ADD_APARTMENT_OK:
-      //console.log('ADD_APARTMENT_OK')
+      console.log(action.payload)
       return {
         ...state,
         loading: false

@@ -1,6 +1,7 @@
 import {
   ADD_APARTMENT,
   ADD_APARTMENT_ERROR,
+  ADDED_APARTMENT_OK,
   BEGIN_APARTMENTS_DOWNLOAD,
   APARTMENTS_DOWNLOAD_OK,
   APARTMENTS_DOWNLOAD_ERROR,
@@ -45,9 +46,10 @@ const addApartment = apartment => ({
   apartment: apartment
 })
 
-const addApartmentOk = () => ({
-  type: BEGIN_APARTMENTS_DOWNLOAD,
-  payload: true
+const addApartmentOk = apartment => ({
+  type: ADDED_APARTMENT_OK,
+  payload: apartment
+
 })
 
 const addApartmentError = state => ({
@@ -57,7 +59,7 @@ const addApartmentError = state => ({
 
 export const addApartmentAction = apartment => store.dispatch(addApartment(apartment))
 
-export const addApartmentOkAction = () => store.dispatch(addApartmentOk())
+export const addApartmentOkAction = apartment => store.dispatch(addApartmentOk(apartment))
 
 export const addApartmentErrorAction = state => store.dispatch(addApartmentError(state))
 

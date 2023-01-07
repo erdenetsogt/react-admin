@@ -2,7 +2,7 @@ import {
   ADD_APARTMENTDOOR,
   ADD_APARTMENTDOOR_OK,
   ADD_APARTMENTDOOR_ERROR,
-
+  ADD_ALL_APARTMENTDOORS,
   BEGIN_APARTMENTDOORS_DOWNLOAD,
   APARTMENTDOORS_DOWNLOAD_OK,
   APARTMENTDOORS_DOWNLOAD_ERROR,
@@ -44,7 +44,7 @@ export function apartmentDoorReducer (state = initialState, action) {
         ...state,
         loading: false
       }
-
+    case ADD_ALL_APARTMENTDOORS:
     case ADD_APARTMENTDOOR_ERROR:
     case APARTMENTDOORS_DOWNLOAD_ERROR:
     case APARTMENTDOOR_DELETED_ERROR:

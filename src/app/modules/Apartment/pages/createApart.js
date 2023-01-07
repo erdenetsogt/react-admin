@@ -1,10 +1,17 @@
+import * as React from 'react';
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import SuccessAlert from '../../../../components/Alert'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import Header from "../../../../components/Header";
 import { addApartmentAction,downloadApartmentsOkAction } from "../../../modules/Apartment/_redux/actions";
 import { addApartmentAllDoorsAction } from "../../ApartmentDoor/_redux/actions";
+import { useImperativeHandle } from 'react';
+import { useRef } from 'react';
+import { useState } from 'react';
 const initialValues = {
   id: 0,
   name: "",
@@ -17,17 +24,43 @@ const residentSchema = yup.object().shape({
   address: yup.string().required("required"),
   //.matches(phoneRegExp,"Утасны дугаар оруулна уу")
 });
-const ListApart = () => {
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  
+  return   <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  
+})
+
+const CreateApart = () => {
+
+  
+  const [open,setOpen] = useState(false);
+  
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+  
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const handleFormSubmit = (values) => {
     //console.log(values);
-    const newapartment = addApartmentAction(values);
+    try{
+      const newapartment = addApartmentAction(values);
+      setOpen(true)
+    }
+    catch(e){
+
+    }
     //downloadApartmentsOkAction
     //const newapartment = addApartmentOkAction();
 
     //const  alldoor = {apartmentID:newapartment.apartment.id,doorCount:values.residentCount}
     //addApartmentAllDoorsAction(alldoor)
-    console.log(newapartment);
+    //console.log(alldoor);
   };
   return (
     <Box m="20px">
@@ -106,7 +139,12 @@ const ListApart = () => {
           </form>
         )}
       </Formik>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical:'bottom',horizontal:'right'}}>
+      <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        This is a success message 
+      </Alert>
+    </Snackbar>
     </Box>
   );
 };
-export default ListApart;
+export default CreateApart;

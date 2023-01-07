@@ -27,9 +27,9 @@ import {
 
 // Retrieve apartments
 // worker saga
-function* retrieveApartmentDoors() {
+function* retrieveApartmentDoors(apartmentID) {
   try {
-    const {data} = yield call(retrieveApartmentDoorsDB)
+    const {data} = yield call(retrieveApartmentDoorsDB,apartmentID)
     yield downloadApartmentDoorsOkAction(data)
   } catch (error) {
     yield put(downloadApartmentDoorsErrorAction())

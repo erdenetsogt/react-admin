@@ -53,7 +53,7 @@ const Sidebar = (props) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
-  let apartment = useSelector(state => state.apartment.apartments,shallowEqual)
+  let apartment = useSelector(state => state.apartment.apartments,shallowEqual)  
   return (
     <Box
       sx={{
@@ -146,8 +146,8 @@ const Sidebar = (props) => {
               Байр
             </Typography>
               {
-              apartment.length===0?
               
+              (apartment.length===0)?              
               <Item
                 title="Шинэ байр"
                 to="/apart/new"
